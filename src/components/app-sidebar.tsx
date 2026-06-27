@@ -18,9 +18,12 @@ import {
   FrameIcon,
   PieChartIcon,
   MapIcon,
+  Send,
+  LifeBuoy,
 } from "lucide-react";
 import { SearchForm } from "@/components/search-form";
 import { SidebarOptInForm } from "@/components/sidebar-opt-in-form";
+import { NavSecondary } from "./nav-secondary";
 
 // This is sample data.
 const data = {
@@ -133,6 +136,18 @@ const data = {
       ],
     },
   ],
+  navSecondary: [
+    {
+      title: "Support",
+      url: "#",
+      icon: LifeBuoy,
+    },
+    {
+      title: "Feedback",
+      url: "#",
+      icon: Send,
+    },
+  ],
   projects: [
     {
       name: "Design Engineering",
@@ -162,6 +177,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <div className="p-1">
