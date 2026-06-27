@@ -20,6 +20,7 @@ import {
   MapIcon,
 } from "lucide-react";
 import { SearchForm } from "@/components/search-form";
+import { SidebarOptInForm } from "@/components/sidebar-opt-in-form";
 
 // This is sample data.
 const data = {
@@ -163,6 +164,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
+        <div className="p-1">
+          <SidebarOptInForm />
+        </div>
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
