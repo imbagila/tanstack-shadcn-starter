@@ -13,6 +13,18 @@
   },
   "oxc.typeAware": true,
   "oxc.fmt.configPath": ".oxfmtrc.json",
+  "oxc.path.oxfmt": "node_modules/oxfmt/dist/cli.js",
+  "oxc.path.oxlint": "node_modules/oxlint/dist/cli.js",
+  "oxc.useExecPath": true,
   "editor.defaultFormatter": "oxc.oxc-vscode",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "js/ts.experimental.useTsgo": true,
+  "typescript.native-preview.tsdk": "node_modules/@typescript/native-preview",
 }
