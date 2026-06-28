@@ -13,7 +13,10 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthedInboxRouteImport } from './routes/_authed/inbox'
-import { Route as AuthedDashboardRouteImport } from './routes/_authed/dashboard'
+import { Route as AuthedFirstIndexRouteImport } from './routes/_authed/first/index'
+import { Route as AuthedDashboardIndexRouteImport } from './routes/_authed/dashboard/index'
+import { Route as AuthedFirstSecondIndexRouteImport } from './routes/_authed/first/second/index'
+import { Route as AuthedFirstSecondThirdIndexRouteImport } from './routes/_authed/first/second/third/index'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -35,54 +38,101 @@ const AuthedInboxRoute = AuthedInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthedDashboardRoute = AuthedDashboardRouteImport.update({
-  id: '/_authed/dashboard',
-  path: '/dashboard',
+const AuthedFirstIndexRoute = AuthedFirstIndexRouteImport.update({
+  id: '/_authed/first/',
+  path: '/first/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthedDashboardIndexRoute = AuthedDashboardIndexRouteImport.update({
+  id: '/_authed/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthedFirstSecondIndexRoute = AuthedFirstSecondIndexRouteImport.update({
+  id: '/_authed/first/second/',
+  path: '/first/second/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthedFirstSecondThirdIndexRoute =
+  AuthedFirstSecondThirdIndexRouteImport.update({
+    id: '/_authed/first/second/third/',
+    path: '/first/second/third/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/dashboard': typeof AuthedDashboardRoute
   '/inbox': typeof AuthedInboxRoute
+  '/dashboard/': typeof AuthedDashboardIndexRoute
+  '/first/': typeof AuthedFirstIndexRoute
+  '/first/second/': typeof AuthedFirstSecondIndexRoute
+  '/first/second/third/': typeof AuthedFirstSecondThirdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/dashboard': typeof AuthedDashboardRoute
   '/inbox': typeof AuthedInboxRoute
+  '/dashboard': typeof AuthedDashboardIndexRoute
+  '/first': typeof AuthedFirstIndexRoute
+  '/first/second': typeof AuthedFirstSecondIndexRoute
+  '/first/second/third': typeof AuthedFirstSecondThirdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
-  '/_authed/dashboard': typeof AuthedDashboardRoute
   '/_authed/inbox': typeof AuthedInboxRoute
+  '/_authed/dashboard/': typeof AuthedDashboardIndexRoute
+  '/_authed/first/': typeof AuthedFirstIndexRoute
+  '/_authed/first/second/': typeof AuthedFirstSecondIndexRoute
+  '/_authed/first/second/third/': typeof AuthedFirstSecondThirdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/dashboard' | '/inbox'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/inbox'
+    | '/dashboard/'
+    | '/first/'
+    | '/first/second/'
+    | '/first/second/third/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/dashboard' | '/inbox'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/inbox'
+    | '/dashboard'
+    | '/first'
+    | '/first/second'
+    | '/first/second/third'
   id:
     | '__root__'
     | '/'
     | '/login'
     | '/signup'
-    | '/_authed/dashboard'
     | '/_authed/inbox'
+    | '/_authed/dashboard/'
+    | '/_authed/first/'
+    | '/_authed/first/second/'
+    | '/_authed/first/second/third/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
-  AuthedDashboardRoute: typeof AuthedDashboardRoute
   AuthedInboxRoute: typeof AuthedInboxRoute
+  AuthedDashboardIndexRoute: typeof AuthedDashboardIndexRoute
+  AuthedFirstIndexRoute: typeof AuthedFirstIndexRoute
+  AuthedFirstSecondIndexRoute: typeof AuthedFirstSecondIndexRoute
+  AuthedFirstSecondThirdIndexRoute: typeof AuthedFirstSecondThirdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -115,11 +165,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedInboxRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authed/dashboard': {
-      id: '/_authed/dashboard'
+    '/_authed/first/': {
+      id: '/_authed/first/'
+      path: '/first'
+      fullPath: '/first/'
+      preLoaderRoute: typeof AuthedFirstIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authed/dashboard/': {
+      id: '/_authed/dashboard/'
       path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthedDashboardRouteImport
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof AuthedDashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authed/first/second/': {
+      id: '/_authed/first/second/'
+      path: '/first/second'
+      fullPath: '/first/second/'
+      preLoaderRoute: typeof AuthedFirstSecondIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authed/first/second/third/': {
+      id: '/_authed/first/second/third/'
+      path: '/first/second/third'
+      fullPath: '/first/second/third/'
+      preLoaderRoute: typeof AuthedFirstSecondThirdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -129,8 +200,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
-  AuthedDashboardRoute: AuthedDashboardRoute,
   AuthedInboxRoute: AuthedInboxRoute,
+  AuthedDashboardIndexRoute: AuthedDashboardIndexRoute,
+  AuthedFirstIndexRoute: AuthedFirstIndexRoute,
+  AuthedFirstSecondIndexRoute: AuthedFirstSecondIndexRoute,
+  AuthedFirstSecondThirdIndexRoute: AuthedFirstSecondThirdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
