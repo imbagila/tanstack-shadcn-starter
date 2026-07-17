@@ -1,14 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Search } from "lucide-react"
+import * as React from "react";
+import { Search } from "lucide-react";
 
-import { Label } from "@/components/ui/label"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -17,61 +13,52 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/components/ui/sidebar"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 
-function SearchInput({
-  id,
-  className,
-  ...props
-}: React.ComponentProps<typeof SidebarInput>) {
+function SearchInput({ id, className, ...props }: React.ComponentProps<typeof SidebarInput>) {
   return (
     <div className={cn("relative", className)}>
       <Label htmlFor={id} className="sr-only">
         Search
       </Label>
-      <SidebarInput
-        id={id}
-        placeholder="Search the docs..."
-        className="pl-8"
-        {...props}
-      />
+      <SidebarInput id={id} placeholder="Search the docs..." className="pl-8" {...props} />
       <Search className="pointer-events-none absolute top-1/2 left-2 size-4 -translate-y-1/2 opacity-50 select-none" />
     </div>
-  )
+  );
 }
 
 export function SearchForm({ className, ...props }: React.ComponentProps<"form">) {
-  const { state, isMobile } = useSidebar()
-  const [open, setOpen] = React.useState(false)
-  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout>>(undefined)
-  const isCollapsed = state === "collapsed" && !isMobile
+  const { state, isMobile } = useSidebar();
+  const [open, setOpen] = React.useState(false);
+  const closeTimeoutRef = React.useRef<ReturnType<typeof setTimeout>>(undefined);
+  const isCollapsed = state === "collapsed" && !isMobile;
 
   const handleOpen = React.useCallback(() => {
     if (closeTimeoutRef.current) {
-      clearTimeout(closeTimeoutRef.current)
+      clearTimeout(closeTimeoutRef.current);
     }
-    setOpen(true)
-  }, [])
+    setOpen(true);
+  }, []);
 
   const handleClose = React.useCallback(() => {
-    closeTimeoutRef.current = setTimeout(() => setOpen(false), 150)
-  }, [])
+    closeTimeoutRef.current = setTimeout(() => setOpen(false), 150);
+  }, []);
 
   const handleClick = React.useCallback(() => {
-    handleOpen()
+    handleOpen();
     requestAnimationFrame(() => {
-      document.getElementById("search-collapsed")?.focus()
-    })
-  }, [handleOpen])
+      document.getElementById("search-collapsed")?.focus();
+    });
+  }, [handleOpen]);
 
   React.useEffect(() => {
     return () => {
       if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current)
+        clearTimeout(closeTimeoutRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   if (!isCollapsed) {
     return (
@@ -82,7 +69,7 @@ export function SearchForm({ className, ...props }: React.ComponentProps<"form">
           </SidebarGroupContent>
         </SidebarGroup>
       </form>
-    )
+    );
   }
 
   return (
@@ -116,5 +103,5 @@ export function SearchForm({ className, ...props }: React.ComponentProps<"form">
         </PopoverContent>
       </Popover>
     </form>
-  )
+  );
 }
