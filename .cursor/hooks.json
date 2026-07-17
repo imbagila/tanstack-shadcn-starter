@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "hooks": {
+    "afterFileEdit": [
+      {
+        "command": "bun .cursor/hooks/format-on-edit.mjs",
+        "timeout": 60
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": "node .cursor/hooks/react-doctor.mjs",
+        "matcher": "Write|Edit|MultiEdit|ApplyPatch",
+        "timeout": 120
+      }
+    ],
+    "stop": [
+      {
+        "command": "bun .cursor/hooks/validate-stop.mjs",
+        "timeout": 600,
+        "loop_limit": 10
+      }
+    ]
+  }
+}

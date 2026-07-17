@@ -1,0 +1,40 @@
+---
+description: Code quality workflow with hooks and final validation
+alwaysApply: true
+---
+
+# Code Quality Rule
+
+This project uses a layered quality setup:
+
+## Automatic (hooks)
+
+- **afterFileEdit**: `oxfmt` and `oxlint --fix` run on edited files
+- **postToolUse**: React Doctor scans changed files after write/edit tools
+- **stop**: full validation runs when an agent turn completes
+
+## Agent responsibilities
+
+When React Doctor or the stop hook reports issues:
+
+- Fix the reported problems in the repo
+- Re-run validation if you changed code after the hook fired
+- Do not claim the task is complete while validation is failing
+
+If React Doctor finds confirmed issues that cannot be fixed now, create GitHub issues with the rule, file/line, confidence, impact, and proposed fix.
+
+## Manual validation commands
+
+Run these in order when verifying locally or after substantial changes:
+
+1. `bun run typecheck`
+2. `bun run lint`
+3. `bun run fmt:check`
+
+Or run the combined gate:
+
+- `bun run validate`
+
+If any command fails, fix the errors and re-run until all pass or you cannot make further progress.
+
+Never claim the task is complete unless `bun run validate` succeeds.
