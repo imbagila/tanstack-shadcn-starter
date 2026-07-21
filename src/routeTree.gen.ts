@@ -9,18 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SignupRouteImport } from './routes/signup'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AuthedInboxRouteImport } from './routes/_authed/inbox'
-import { Route as AuthedFirstIndexRouteImport } from './routes/_authed/first/index'
 import { Route as AuthedDashboardIndexRouteImport } from './routes/_authed/dashboard/index'
+import { Route as AuthedFirstIndexRouteImport } from './routes/_authed/first/index'
 import { Route as AuthedFirstSecondIndexRouteImport } from './routes/_authed/first/second/index'
 import { Route as AuthedFirstSecondThirdIndexRouteImport } from './routes/_authed/first/second/third/index'
 
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -28,9 +28,9 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthedInboxRoute = AuthedInboxRouteImport.update({
@@ -38,14 +38,14 @@ const AuthedInboxRoute = AuthedInboxRouteImport.update({
   path: '/inbox',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthedFirstIndexRoute = AuthedFirstIndexRouteImport.update({
-  id: '/_authed/first/',
-  path: '/first/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthedDashboardIndexRoute = AuthedDashboardIndexRouteImport.update({
   id: '/_authed/dashboard/',
   path: '/dashboard/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthedFirstIndexRoute = AuthedFirstIndexRouteImport.update({
+  id: '/_authed/first/',
+  path: '/first/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthedFirstSecondIndexRoute = AuthedFirstSecondIndexRouteImport.update({
@@ -137,11 +137,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -151,11 +151,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authed/inbox': {
@@ -165,18 +165,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedInboxRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authed/first/': {
-      id: '/_authed/first/'
-      path: '/first'
-      fullPath: '/first/'
-      preLoaderRoute: typeof AuthedFirstIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authed/dashboard/': {
       id: '/_authed/dashboard/'
       path: '/dashboard'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof AuthedDashboardIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authed/first/': {
+      id: '/_authed/first/'
+      path: '/first'
+      fullPath: '/first/'
+      preLoaderRoute: typeof AuthedFirstIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authed/first/second/': {
