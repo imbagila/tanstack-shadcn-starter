@@ -1,0 +1,12 @@
+# React Doctor: security, performance, correctness, accessibility, bundle-size,
+# and architecture checks for React.
+#
+# These settings were written by `react-doctor ci config`. Run it again to change them.
+# Docs: https://www.react.doctor/ci
+
+react-doctor:
+  image: node:lts
+  script:
+    - npx react-doctor@latest --blocking none --scope changed --base "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
