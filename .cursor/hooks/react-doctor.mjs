@@ -48,11 +48,7 @@ const runReactDoctor = (outputPath) => {
   ];
 
   for (const command of commands) {
-    const result = spawnSync(command, {
-      encoding: "utf8",
-      shell: true,
-      maxBuffer: SPAWN_MAX_BUFFER_BYTES,
-    });
+    const result = spawnSync(command, { encoding: "utf8", shell: true, maxBuffer: SPAWN_MAX_BUFFER_BYTES });
     if (result.error?.code === "ENOENT" || result.status === 127 || result.status === 9009) continue;
     try {
       writeFileSync(outputPath, (result.stdout || "") + (result.stderr || ""));
@@ -110,11 +106,7 @@ const main = () => {
   const message = `React Doctor found issues in the changed files. Review this output and fix the regressions before finishing. For confirmed issues that cannot be fixed now, create GitHub issues with the rule, file/line, confidence, impact, and proposed fix.\n\n${scanOutput}`;
 
   if (input.hook_event_name === "PostToolBatch") {
-    console.log(
-      JSON.stringify({
-        hookSpecificOutput: { hookEventName: "PostToolBatch", additionalContext: message },
-      }),
-    );
+    console.log(JSON.stringify({ hookSpecificOutput: { hookEventName: "PostToolBatch", additionalContext: message } }));
   } else {
     console.log(JSON.stringify({ additional_context: message }));
   }
