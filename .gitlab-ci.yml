@@ -1,10 +1,28 @@
+# CI: static validation (tsc, oxlint, oxfmt) and React Doctor advisory scans.
+#
+# Local equivalent: bun run validate
+
+stages:
+  - validate
+  - quality
+
+validate:
+  stage: validate
+  image: oven/bun:1
+  script:
+    - bun install --frozen-lockfile
+    - bun run validate
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
 # React Doctor: security, performance, correctness, accessibility, bundle-size,
 # and architecture checks for React.
 #
 # These settings were written by `react-doctor ci config`. Run it again to change them.
 # Docs: https://www.react.doctor/ci
-
 react-doctor:
+  stage: quality
   image: node:lts
   script:
     - npx react-doctor@latest --blocking none --scope changed --base "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
