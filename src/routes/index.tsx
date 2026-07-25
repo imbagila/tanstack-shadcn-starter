@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ModeToggleButton, ModeToggleDropdown } from "@/components/mode-toggle";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -9,6 +10,10 @@ function Home() {
       <p className="mt-4 text-lg">
         Edit <code>src/routes/index.tsx</code> to get started.
       </p>
+      <div className="mt-6 flex items-center gap-2">
+        <ModeToggleButton />
+        <ModeToggleDropdown />
+      </div>
     </div>
   );
 }

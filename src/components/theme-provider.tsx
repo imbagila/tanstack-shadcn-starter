@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { ScriptOnce } from "@tanstack/react-router";
 
 type Theme = "dark" | "light" | "system";
+type ResolvedTheme = "dark" | "light";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -11,8 +12,17 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme;
+  resolvedTheme: ResolvedTheme;
   setTheme: (theme: Theme) => void;
 };
+
+function resolveTheme(theme: Theme): ResolvedTheme {
+  if (theme === "system") {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+
+  return theme;
+}
 
 function getThemeScript(storageKey: string, defaultTheme: Theme) {
   const key = JSON.stringify(storageKey);
@@ -23,6 +33,7 @@ function getThemeScript(storageKey: string, defaultTheme: Theme) {
 
 const ThemeProviderContext = createContext<ThemeProviderState>({
   theme: "system",
+  resolvedTheme: "light",
   setTheme: () => {},
 });
 
@@ -39,6 +50,7 @@ function applyTheme(theme: Theme) {
 
 export function ThemeProvider({ children, defaultTheme = "system", storageKey = "theme" }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(defaultTheme);
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -50,13 +62,17 @@ export function ThemeProvider({ children, defaultTheme = "system", storageKey = 
   useEffect(() => {
     if (!mounted) return;
     applyTheme(theme);
+    setResolvedTheme(resolveTheme(theme));
   }, [theme, mounted]);
 
   useEffect(() => {
     if (!mounted || theme !== "system") return;
 
     const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = () => applyTheme("system");
+    const onChange = () => {
+      applyTheme("system");
+      setResolvedTheme(resolveTheme("system"));
+    };
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
   }, [theme, mounted]);
@@ -67,7 +83,7 @@ export function ThemeProvider({ children, defaultTheme = "system", storageKey = 
   };
 
   return (
-    <ThemeProviderContext value={{ theme, setTheme }}>
+    <ThemeProviderContext value={{ theme, resolvedTheme, setTheme }}>
       <ScriptOnce>{getThemeScript(storageKey, defaultTheme)}</ScriptOnce>
       {children}
     </ThemeProviderContext>
