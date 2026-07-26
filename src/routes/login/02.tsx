@@ -27,7 +27,7 @@ function RouteComponent() {
       <div className="relative hidden bg-muted lg:block">
         <img
           src="/placeholder.svg"
-          alt="Image"
+          alt=""
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
       </div>

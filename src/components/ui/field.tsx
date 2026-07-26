@@ -172,7 +172,7 @@ function FieldError({
   } else if (errors?.length) {
     const uniqueErrors = [...new Map(errors.map((error) => [error?.message, error])).values()];
 
-    if (uniqueErrors.length === 1) {
+    if (uniqueErrors?.length == 1) {
       content = uniqueErrors[0]?.message;
     } else {
       content = (

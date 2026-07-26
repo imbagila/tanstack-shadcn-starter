@@ -24,11 +24,9 @@ export function ModeToggleDropdown() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="relative">
-          <ThemeIcon />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
+      <DropdownMenuTrigger render={<Button variant="outline" size="icon" className="relative" />}>
+        <ThemeIcon />
+        <span className="sr-only">Toggle theme</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuRadioGroup value={theme} onValueChange={(value) => setTheme(value as "dark" | "light" | "system")}>
