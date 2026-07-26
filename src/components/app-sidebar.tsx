@@ -14,139 +14,99 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { Link, useRouterState } from "@tanstack/react-router";
+
+interface SidebarData {
+  versions: string[];
+  navMain: SidebarNavMain[];
+}
+
+interface SidebarNavMain {
+  title: string;
+  url: string;
+  items: SidebarItem[];
+}
+
+interface SidebarItem {
+  title: string;
+  url: string;
+}
 
 // This is sample data.
-const data = {
+const data: SidebarData = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Getting Started",
+      title: "Home",
       url: "#",
       items: [
         {
-          title: "Installation",
-          url: "#",
+          title: "Dashboard",
+          url: "/dashboard",
         },
         {
-          title: "Project Structure",
-          url: "#",
+          title: "Logout",
+          url: "/logout",
         },
       ],
     },
     {
-      title: "Build Your Application",
+      title: "Login",
       url: "#",
       items: [
         {
-          title: "Routing",
-          url: "#",
+          title: "Login 01",
+          url: "/login/01",
         },
         {
-          title: "Data Fetching",
-          url: "#",
-          isActive: true,
+          title: "Login 02",
+          url: "/login/02",
         },
         {
-          title: "Rendering",
-          url: "#",
+          title: "Login 03",
+          url: "/login/03",
         },
         {
-          title: "Caching",
-          url: "#",
+          title: "Login 04",
+          url: "/login/04",
         },
         {
-          title: "Styling",
-          url: "#",
-        },
-        {
-          title: "Optimizing",
-          url: "#",
-        },
-        {
-          title: "Configuring",
-          url: "#",
-        },
-        {
-          title: "Testing",
-          url: "#",
-        },
-        {
-          title: "Authentication",
-          url: "#",
-        },
-        {
-          title: "Deploying",
-          url: "#",
-        },
-        {
-          title: "Upgrading",
-          url: "#",
-        },
-        {
-          title: "Examples",
-          url: "#",
+          title: "Login 05",
+          url: "/login/05",
         },
       ],
     },
     {
-      title: "API Reference",
+      title: "Sign Up",
       url: "#",
       items: [
         {
-          title: "Components",
-          url: "#",
+          title: "Sign Up 01",
+          url: "/signup/01",
         },
         {
-          title: "File Conventions",
-          url: "#",
+          title: "Sign Up 02",
+          url: "/signup/02",
         },
         {
-          title: "Functions",
-          url: "#",
+          title: "Sign Up 03",
+          url: "/signup/03",
         },
         {
-          title: "next.config.js Options",
-          url: "#",
+          title: "Sign Up 04",
+          url: "/signup/04",
         },
         {
-          title: "CLI",
-          url: "#",
-        },
-        {
-          title: "Edge Runtime",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Architecture",
-      url: "#",
-      items: [
-        {
-          title: "Accessibility",
-          url: "#",
-        },
-        {
-          title: "Fast Refresh",
-          url: "#",
-        },
-        {
-          title: "Next.js Compiler",
-          url: "#",
-        },
-        {
-          title: "Supported Browsers",
-          url: "#",
-        },
-        {
-          title: "Turbopack",
-          url: "#",
+          title: "Sign Up 05",
+          url: "/signup/05",
         },
       ],
     },
   ],
 };
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+
   return (
     <Sidebar {...props}>
       <SidebarHeader>
@@ -161,7 +121,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton isActive={item.isActive} render={<a href={item.url} />}>
+                    <SidebarMenuButton
+                      isActive={item.url === pathname}
+                      render={<Link to={item.url}>{item.title}</Link>}
+                    >
                       {item.title}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
