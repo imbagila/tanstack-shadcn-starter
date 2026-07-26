@@ -14,6 +14,7 @@ import { Route as Login01RouteImport } from './routes/login/01'
 import { Route as Login02RouteImport } from './routes/login/02'
 import { Route as Login03RouteImport } from './routes/login/03'
 import { Route as Login04RouteImport } from './routes/login/04'
+import { Route as Login05RouteImport } from './routes/login/05'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const Login04Route = Login04RouteImport.update({
   path: '/login/04',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Login05Route = Login05RouteImport.update({
+  id: '/login/05',
+  path: '/login/05',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/login/02': typeof Login02Route
   '/login/03': typeof Login03Route
   '/login/04': typeof Login04Route
+  '/login/05': typeof Login05Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/login/02': typeof Login02Route
   '/login/03': typeof Login03Route
   '/login/04': typeof Login04Route
+  '/login/05': typeof Login05Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/login/02': typeof Login02Route
   '/login/03': typeof Login03Route
   '/login/04': typeof Login04Route
+  '/login/05': typeof Login05Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login/01' | '/login/02' | '/login/03' | '/login/04'
+  fullPaths:
+    '/' | '/login/01' | '/login/02' | '/login/03' | '/login/04' | '/login/05'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login/01' | '/login/02' | '/login/03' | '/login/04'
-  id: '__root__' | '/' | '/login/01' | '/login/02' | '/login/03' | '/login/04'
+  to: '/' | '/login/01' | '/login/02' | '/login/03' | '/login/04' | '/login/05'
+  id:
+    | '__root__'
+    | '/'
+    | '/login/01'
+    | '/login/02'
+    | '/login/03'
+    | '/login/04'
+    | '/login/05'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   Login02Route: typeof Login02Route
   Login03Route: typeof Login03Route
   Login04Route: typeof Login04Route
+  Login05Route: typeof Login05Route
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Login04RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login/05': {
+      id: '/login/05'
+      path: '/login/05'
+      fullPath: '/login/05'
+      preLoaderRoute: typeof Login05RouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   Login02Route: Login02Route,
   Login03Route: Login03Route,
   Login04Route: Login04Route,
+  Login05Route: Login05Route,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
