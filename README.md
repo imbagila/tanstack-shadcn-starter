@@ -39,20 +39,20 @@ bun run dev
 This is example to clone base shadcn, auth block, tanstack authed route, tanstack start, tanstack form, tanstack query
 
 ```
-git clone --branch base/auth --single-branch git@github.com:imbagila/tanstack-shadcn-starter.git
+git clone --branch base-auth --single-branch git@github.com:imbagila/tanstack-shadcn-starter.git
 ```
 
-It will only get `base/auth` source code template.
+It will only get `base-auth` source code template.
 
-If you want to also get all of the source code but want to start work from `base/auth`, run this command
+If you want to also get all of the source code but want to start work from `base-auth`, run this command
 
 ```
-git clone --branch base/auth git@github.com:imbagila/tanstack-shadcn-starter.git
+git clone --branch base-auth git@github.com:imbagila/tanstack-shadcn-starter.git
 ```
 
 ## List of Templates and Features
 
 - `base` (wip)
-- `base/auth` (wip)
-- `base/dashboard` (wip)
+- `base-auth` (wip)
+- `base-dashboard` (wip)
 - `main`
